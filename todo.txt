@@ -13,3 +13,14 @@ a page to see if the other ones work still, will check these pages:
 - api checks
 	- authentication
 	- 
+
+
+
+api implementation:
+- profile: get for getting profile, put for updating profile, post for creating profile
+- cart: get for getting cart and all the products added, put for adding items to cart
+- products: get for getting all products or a single product depending on request data, post for adding products (access limited to authorized people only), put for updating products also limit access
+- order: get for getting order info already placed, post for placing order, put for updating it through admin side
+
+
+
