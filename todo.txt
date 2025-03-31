@@ -1,0 +1,15 @@
+CRUD for products, profile, cart
+
+use modular components header, footer, product cards
+create a single page template for products
+create an archive for the product page
+
+user profile page
+
+
+a page to see if the other ones work still, will check these pages:
+- single page products
+- archive pages
+- api checks
+	- authentication
+	- 
