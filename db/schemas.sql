@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     last_name VARCHAR(50),
     phone VARCHAR(15),
     address TEXT,
-    role ENUM('Admin', 'Customer', 'Vendor') DEFAULT 'Customer',
+    role ENUM('Admin', 'Customer') DEFAULT 'Customer',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -4,6 +4,7 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 require_once '../util.php';
+require_once 'auth/authorize.php';
 
 $db_host = getenv('DATABASE_HOST');
 $db_user = getenv('DATABASE_USER');
@@ -24,14 +25,17 @@ try {
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
-    // Handle GET Request - Retrieve All User Profiles
-    $userId = $_GET['id'] ?? null;
+
+    $payload = authorize_request();
+
+    $userId = $payload['user_id'] ?? null;
     if ($userId === null) {
         http_response_code(400);
         echo json_encode(["error" => "Missing user ID"]);
         exit;
     }
     try {
+        // 
         $stmt = $pdo->prepare("SELECT username,first_name,last_name FROM user_profiles WHERE user_id = :id");
         $stmt->bindParam(':id', $userId);
         $stmt->execute();
@@ -55,41 +59,9 @@ if ($method === 'GET') {
         exit;
     }
 
-} else if ($method === 'POST') {
-    // Handle POST Request - Add New User Profile
-    $data = json_decode(file_get_contents("php://input"), true);
-    $data = sanitizeInput($data);
-    // Check if the request body is empty
-    if (empty($data)) {
-        http_response_code(400);
-        echo json_encode(["error" => "Request body is empty"]);
-        exit;
-    }
+} //TODO: maybe switch to PUT method for updating user profile, and POST for creating new users would be handled inside the register.php file 
+else if ($method === 'PUT') {
 
-    // Validate Input
-    if (!isset($data['username'], $data['email'], $data['password'])) {
-        http_response_code(400);
-        echo json_encode(["error" => "Missing required fields: username, email, password"]);
-        exit;
-    }
-
-    // Insert New User into the Database
-    try {
-        $stmt = $pdo->prepare("INSERT INTO user_profiles (username, email, password) 
-                            VALUES (:username, :email, :password)");
-        // Bind parameters to prevent SQL injection
-        $stmt->bindParam(':username', $data['username']);
-        $stmt->bindParam(':email', $data['email']);
-        $stmt->bindParam(':password', password_hash($data['password'], PASSWORD_DEFAULT));
-
-        $stmt->execute();
-
-        http_response_code(201);
-        echo json_encode(["message" => "User profile created successfully"]);
-    } catch (Exception $e) {
-        http_response_code(500);
-        echo json_encode(["error" => $e->getMessage()]);
-    }
 } else {
     http_response_code(405);
     echo json_encode(["error" => "Method Not Allowed. Use GET or POST."]);
