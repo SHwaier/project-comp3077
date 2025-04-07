@@ -1,7 +1,13 @@
 <?php
 require_once 'jwt_helpers.php';
 
-
+/**
+ * Generates a JWT token.
+ * The token is created using the header, payload, and a secret key.
+ * @param mixed $payload The payload data to be included in the token.
+ * @return string The generated JWT token.
+ * The token consists of three parts: header, payload, and signature, separated by dots.
+ */
 function generate_jwt($payload)
 {
     $header = ['alg' => 'HS256', 'typ' => 'JWT'];

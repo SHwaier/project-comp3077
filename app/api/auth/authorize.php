@@ -1,4 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
 require_once 'validate_jwt.php';
 
 /**
@@ -29,18 +34,4 @@ function authorize_request()
         echo json_encode(['error' => 'Invalid authorization header']);
         exit;
     }
-}
-
-function authorize_request_frontend()
-{
-    $headers = getallheaders();
-
-    if (!isset($headers['Authorization'])) return null;
-
-    if (preg_match('/Bearer\s(\S+)/', $headers['Authorization'], $matches)) {
-        $jwt = $matches[1];
-        return validate_jwt($jwt); // returns payload or false
-    }
-
-    return null;
 }

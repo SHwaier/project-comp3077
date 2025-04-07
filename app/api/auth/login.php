@@ -1,6 +1,6 @@
 <?php
 require_once 'generate_jwt.php';
-
+require_once '../util.php';
 header("Content-Type: application/json");
 
 // Database connection
@@ -21,6 +21,7 @@ try {
 
 // Get JSON input
 $data = json_decode(file_get_contents("php://input"), true);
+// $data = sanitizeInput($data);
 $username = $data['username'] ?? '';
 $password = $data['password'] ?? '';
 
@@ -33,7 +34,7 @@ if (empty($username) || empty($password)) {
 
 try {
     // Find user by username
-    $stmt = $pdo->prepare("SELECT user_id, username, password FROM user_profiles WHERE username = :username");
+    $stmt = $pdo->prepare("SELECT user_id, username, password, role FROM user_profiles WHERE username = :username");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -42,6 +43,7 @@ try {
     if ($user && password_verify($password, $user['password'])) {
         $payload = [
             "user_id" => $user['user_id'],
+            "role" => $user['role'],
             "username" => $user['username'],
             "exp" => time() + (60 * 60) // 1 hour expiry
         ];

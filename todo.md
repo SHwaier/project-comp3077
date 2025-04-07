@@ -14,7 +14,7 @@ a page to see if the other ones work still, will check these pages:
 	- authentication
 	- 
 
-
+Theme can be dynamically changed inside theme.js
 
 api implementation:
 - profile: 
@@ -34,4 +34,5 @@ api implementation:
 	- put for updating it through admin side **probably won't implement this as it is unnecessary for this assignment**
 
 
-
+login and regiser work,
+TODO: error checking for both, and separate logic on register as well as renam inline css styles
