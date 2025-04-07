@@ -30,3 +30,17 @@ function authorize_request()
         exit;
     }
 }
+
+function authorize_request_frontend()
+{
+    $headers = getallheaders();
+
+    if (!isset($headers['Authorization'])) return null;
+
+    if (preg_match('/Bearer\s(\S+)/', $headers['Authorization'], $matches)) {
+        $jwt = $matches[1];
+        return validate_jwt($jwt); // returns payload or false
+    }
+
+    return null;
+}

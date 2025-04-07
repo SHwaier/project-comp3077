@@ -1,0 +1,17 @@
+# Make sure this file is located at the root of your website
+# Enable Rewrite Engine
+RewriteEngine On
+
+DirectoryIndex index.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite to .php extension
+RewriteRule ^(.*)$ $1.php [L]
+
+# Environment Variables
+SetEnv DATABASE_HOST <your.db.hostname> 
+SetEnv DATABASE_USER <your.db.username>
+SetEnv DATABASE_PASS <your.db.password>
+SetEnv DATABASE_NAME <your.db.namehere> 
