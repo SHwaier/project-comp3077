@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         try {
-            const res = await fetch('/estore/api/auth/login.php', {
+            const res = await fetch('/api/auth/login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -31,9 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (data.token) {
-                // Store token and redirect
-                localStorage.setItem('Token', data.token);
-                window.location.href = '/estore'; // Redirect to homepage
+                // Handle successful login
+                // Store the token in a cookie with secure and same-site attributes, and set the path to root
+                document.cookie = `token=${data.token}; path=/; secure; samesite=strict`;
+
+                window.location.href = '/'; // Redirect to homepage
             } else {
                 errorMsg.textContent = "Unexpected response.";
                 errorMsg.style.display = 'block';

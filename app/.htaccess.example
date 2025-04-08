@@ -1,4 +1,3 @@
-# Make sure this file is located at the root of your website
 # Enable Rewrite Engine
 RewriteEngine On
 
@@ -7,8 +6,18 @@ DirectoryIndex index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Rewrite to .php extension
-RewriteRule ^(.*)$ $1.php [L]
+# cleanup URLs because who wants to access filenames bruh
+# Rewrite URLs to .php if file exists
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ index.php [L]
+
+# Rewrite URLs to .html if file exists
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
 
 # Environment Variables
 SetEnv DATABASE_HOST <your.db.hostname> 

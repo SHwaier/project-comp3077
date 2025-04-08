@@ -4,9 +4,8 @@
 
         <!-- Column 1: Logo -->
         <div class="flex flex-col">
-            <a href="/estore">
-                <img class="logo" src="/estore/assets/logo/estore-logo-light.png" alt="Estore Logo" width="100"
-                    height="100">
+            <a href="/">
+                <img class="logo" src="/assets/logo/estore-logo-light.png" alt="Estore Logo" width="100" height="100">
             </a>
             <p style="margin-top: 0.5rem; font-size: 0.9rem;">© <?= date("Y") ?> Estore. All rights reserved.</p>
         </div>

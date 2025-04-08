@@ -5,5 +5,5 @@
 <meta name="keywords" content="clothing, fashion, modern, digital">
 <meta name="robots" content="index, follow">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="stylesheet" href="/estore/styles/style.css">
+<link rel="stylesheet" href="/styles/style.css">
 <link rel="icon" href="/assets/logo/favicon.ico" type="image/x-icon">

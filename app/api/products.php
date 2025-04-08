@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: GET, POST");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 require_once './util.php';
 
@@ -29,10 +29,10 @@ if ($method === 'GET') {
 
     try {
         if (is_numeric($product_id)) {
-            $stmt = $pdo->prepare("SELECT product_id, product_name, description, price FROM products WHERE product_id = :id");
+            $stmt = $pdo->prepare("SELECT product_id, product_name, description, price, stock_quantity, image_url FROM products WHERE product_id = :id");
             $stmt->bindParam(':id', $product_id);
         } else {
-            $stmt = $pdo->prepare("SELECT product_id, product_name, description, price FROM products");
+            $stmt = $pdo->prepare("SELECT product_id, product_name, description, price, stock_quantity, image_url FROM products");
         }
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -41,6 +41,7 @@ if ($method === 'GET') {
             echo json_encode([]);
             exit;
         }
+
         echo json_encode($results, JSON_PRETTY_PRINT);
     } catch (Exception $e) {
         http_response_code(500);

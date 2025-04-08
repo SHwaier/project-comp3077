@@ -1,3 +1,3 @@
 <!-- common scripts that are used site wide are added in here -->
-<script src="/estore/scripts/app.js" defer></script>
-<script src="/estore/scripts/theme.js"></script>
+<script src="/scripts/app.js" defer></script>
+<script src="/scripts/theme.js"></script>

@@ -22,7 +22,6 @@ function validate_jwt($jwt)
 
     // Check expiry, reject if expired
     if (isset($payload['exp']) && time() > $payload['exp']) {
-        echo json_encode(['error' => 'Token expired']);
         return false;
     }
 

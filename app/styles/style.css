@@ -70,7 +70,11 @@ body {
 	line-height: 1.6;
 	transition: all 0.3s ease;
 }
-
+main {
+	width: 100%;
+	padding: 2rem;
+	min-height: 100dvh;
+}
 a {
 	color: var(--accent-color);
 	text-decoration: none;
@@ -189,9 +193,52 @@ nav a {
 	border-radius: 5px;
 	transition: all ease 0.2s;
 }
+.user-menu-wrapper {
+	position: relative;
+	display: inline-block;
+}
+
+/* Always show the dropdown when hovering anywhere inside the wrapper */
+.user-menu-wrapper:hover .user-menu-dropdown {
+	display: flex;
+}
+
+.user-menu-toggle {
+	cursor: pointer;
+}
+
+.user-menu-dropdown {
+	position: absolute;
+	left: 0;
+	background-color: var(--card-bg);
+	border: 1px solid var(--border-color);
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+	padding: 0.5rem 0;
+	margin: 0;
+	min-width: 140px;
+	z-index: 1000;
+	display: none;
+	flex-direction: column;
+	top: calc(100% + 2px); /* adds a 2px buffer zone between icon and dropdown */
+}
+
+.user-menu-dropdown li {
+	padding-right: 2rem;
+	padding-left: 2rem;
+}
+
+.user-menu-dropdown li a {
+	color: var(--text-color);
+	text-decoration: none;
+	display: block;
+	transition: background 0.2s ease;
+}
+
+.user-menu-dropdown li a:hover {
+	background-color: var(--accent-light);
+}
 
 #desktop-header ul {
-	display: flex;
 	justify-content: center;
 	gap: 2rem;
 }

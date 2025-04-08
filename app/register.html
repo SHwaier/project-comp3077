@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register – Estore</title>
-    <link rel="stylesheet" href="/estore/styles/style.css">
+    <link rel="stylesheet" href="/styles/style.css">
     <style>
-        .login-container {
+        .register-container {
             display: flex;
             height: 100vh;
             background-color: inherit;
         }
 
-        .login-left {
+        .register-left {
             flex: 3;
             background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
             color: var(--text-color);
@@ -24,18 +24,18 @@
             padding: 2rem;
         }
 
-        .login-left img {
+        .register-left img {
             width: 150px;
             height: auto;
             margin-bottom: 2rem;
         }
 
-        .login-left h1 {
+        .register-left h1 {
             font-size: 2rem;
             font-weight: bold;
         }
 
-        .login-right {
+        .register-right {
             flex: 2;
             display: flex;
             justify-content: center;
@@ -44,7 +44,7 @@
             background-color: var(--bg-color);
         }
 
-        .login-form {
+        .register-form {
             width: 100%;
             max-width: 400px;
             display: flex;
@@ -52,12 +52,12 @@
             gap: 1.5rem;
         }
 
-        .login-form h2 {
+        .register-form h2 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
-        .login-form input {
+        .register-form input {
             padding: 0.75rem;
             border: 1px solid var(--border-color);
             border-radius: 6px;
@@ -65,11 +65,11 @@
             color: var(--text-color);
         }
 
-        .login-form input:focus {
+        .register-form input:focus {
             outline: 2px solid var(--accent-color);
         }
 
-        .login-form button {
+        .register-form button {
             padding: 0.75rem;
             background-color: var(--accent-color);
             color: var(--text-color);
@@ -79,23 +79,23 @@
             cursor: pointer;
         }
 
-        .login-form button:hover {
+        .register-form button:hover {
             background-color: var(--accent-hover);
         }
 
         @media (max-width: 768px) {
-            .login-container {
+            .register-container {
                 flex-direction: column;
             }
 
-            .login-left,
-            .login-right {
+            .register-left,
+            .register-right {
                 flex: none;
                 width: 100%;
                 height: auto;
             }
 
-            .login-left {
+            .register-left {
                 padding: 4rem 2rem;
             }
         }
@@ -103,10 +103,10 @@
 </head>
 
 <body>
-    <div class="login-container">
+    <div class="register-container">
         <!-- Left Panel -->
-        <div class="login-left">
-            <img src="/estore/assets/logo/estore-logo-light.png" alt="Estore Logo">
+        <div class="register-left">
+            <img src="/assets/logo/estore-logo-light.png" alt="Estore Logo">
             <h1>Join Estore</h1>
             <p style="max-width: 400px; text-align: center; margin-top: 1rem;">
                 Create your free account and start shopping personalized fashion today.
@@ -114,76 +114,34 @@
         </div>
 
         <!-- Right Panel -->
-        <div class="login-right">
-            <form class="login-form" id="registerForm">
+        <div class="register-right">
+            <form class="register-form" id="registerForm">
                 <h2>Register</h2>
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="text" id="username" placeholder="Username" required>
-                <input type="password" id="password" placeholder="Password" required>
+                <div>
+
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                </div>
+                <div>
+
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Username" required>
+                </div>
+                <div>
+
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                </div>
                 <button type="submit">Create Account</button>
                 <p id="register-error" style="color: var(--error-color); display: none; font-size: 0.9rem;"></p>
                 <p style="font-size: 0.9rem; color: var(--secondary-text);">
-                    Already have an account? <a href="/estore/login">Sign in</a>
+                    Already have an account? <a href="/login">Login</a>
                 </p>
             </form>
         </div>
     </div>
-
     <script src="scripts/theme.js"></script>
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value.trim();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const errorMsg = document.getElementById('register-error');
-            errorMsg.style.display = 'none';
-
-            // Regex patterns
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const usernamePattern = /^[a-zA-Z0-9_]{3,20}$/;
-            const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-
-            // Validate
-            if (!emailPattern.test(email)) {
-                errorMsg.textContent = "Invalid email format.";
-                errorMsg.style.display = "block";
-                return;
-            }
-            if (!usernamePattern.test(username)) {
-                errorMsg.textContent = "Username must be 3-20 characters (letters, numbers, underscores).";
-                errorMsg.style.display = "block";
-                return;
-            }
-            if (!passwordPattern.test(password)) {
-                errorMsg.textContent = "Password must be at least 6 characters with letters and numbers.";
-                errorMsg.style.display = "block";
-                return;
-            }
-
-            try {
-                const res = await fetch('/estore/api/auth/register.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, username, password })
-                });
-
-                const data = await res.json();
-
-                if (!res.ok) {
-                    errorMsg.textContent = data.error || "Registration failed. Try again.";
-                    errorMsg.style.display = "block";
-                    return;
-                }
-
-                // Success: redirect or show message
-                window.location.href = '/estore/login';
-            } catch (err) {
-                errorMsg.textContent = "Something went wrong. Please try again.";
-                errorMsg.style.display = "block";
-            }
-        });
-    </script>
+    <script src="scripts/register.js"></script>
 </body>
 
 </html>

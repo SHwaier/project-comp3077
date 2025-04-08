@@ -11,7 +11,7 @@ window.onload = async function () {
     if (document.documentElement.getAttribute('data-theme') === "light") {
         let logos = document.getElementsByClassName('logo');
         for (let i = 0; i < logos.length; i++) {
-            logos[i].setAttribute('src', '/estore/assets/logo/estore-logo-dark.png');
+            logos[i].setAttribute('src', '/assets/logo/estore-logo-dark.png');
         }
     }
 };
